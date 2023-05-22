@@ -6,7 +6,7 @@ exports.forecast = async (req, res) => {
         const input = await getInfluxDB();
         const ret = await pythonScript(input)
         res.status(200);
-        res.json(ret);
+        res.json({...ret, ...input});
     } catch (error) {
         res.json(error);
     }
