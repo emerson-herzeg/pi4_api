@@ -1,14 +1,13 @@
 const pythonScript = require('../libs/python');
+const { getInfluxDB } = require('../libs/influxdb')
 
 exports.forecast = async (req, res) => {
     try {
-
-        const input = req.query;
-
+        const input = await getInfluxDB();
         const ret = await pythonScript(input)
         res.status(200);
         res.json(ret);
     } catch (error) {
-        console.log(error);
+        res.json(error);
     }
 };
